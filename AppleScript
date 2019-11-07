@@ -3,7 +3,7 @@ bit.ly/下載_重置自動化與全盤訪問特權
 GitHub.com/VirgoEros/Reset_automation_and_full_access/blob/master/AppleScript 
 *)
 ----------------------------∞ 重置自動化與全盤訪問特權 ∞------------------------------ON. 
-global Reset_automation_and_full_access, OpenScript, TerminalNotifier, errmsg, errnbr
+global Reset_automation_and_full_access, OpenScript, isDone, itemPath, itemProgress, TerminalNotifier, errmsg, errnbr
 global OpenScript, OpenAppScript, TerminalNotifier, errmsg, errnbr
 
 on run
@@ -15,9 +15,28 @@ on run
 		if Reset_automation_and_full_access is "重置自動化特權" then do shell script ("tccutil reset AppleEvents")
 		if Reset_automation_and_full_access is "重置全盤訪問特權" then do shell script ("tccutil reset SystemPolicyAllFiles")
 		if Reset_automation_and_full_access is "開啟腳本" then run script OpenScript
-		set TerminalNotifier to POSIX path of (path to me as text) & ("Contents/MacOS/terminal-notifier")
-		set TerminalNotifier to quoted form of TerminalNotifier
-		do shell script (TerminalNotifier & " -title 已重置鰳唷💋")
+		delay 1
+		set isDone to false
+		set itemPath to ("tccutil")
+		set itemProgress to "ps ax | grep -v grep | grep " & itemPath
+		repeat while isDone is false
+			try
+				do shell script itemProgress
+				if the result contains itemPath then
+					delay 1
+				else
+					set isDone to true
+				end if
+			on error
+				set isDone to true
+			end try
+		end repeat
+		if isDone is true then
+			set TerminalNotifier to POSIX path of (path to me as text) & ("Contents/MacOS/terminal-notifier")
+			set TerminalNotifier to quoted form of TerminalNotifier
+			do shell script (TerminalNotifier & " -title 已重置鰳唷💋")
+			continue quit
+		end if
 		continue quit
 	on error errmsg number errnbr
 		if errnbr = -128 then continue quit
