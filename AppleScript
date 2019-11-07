@@ -1,0 +1,45 @@
+(* 
+bit.ly/下載_重置自動化與全盤訪問特權 
+GitHub.com/VirgoEros/Reset_automation_and_full_access/blob/master/AppleScript 
+*)
+----------------------------∞ 重置自動化與全盤訪問特權 ∞------------------------------ON. 
+global Reset_automation_and_full_access, OpenScript, TerminalNotifier, errmsg, errnbr
+global OpenScript, OpenAppScript, TerminalNotifier, errmsg, errnbr
+
+on run
+	try
+		tell application "Finder" to set {button returned:Reset_automation_and_full_access} to ¬
+			display dialog ("請嚫鱫的沝女鰰選擇 重置自動化與全盤訪問特權 選項唷💋") buttons ¬
+				{"重置自動化特權", "重置全盤訪問特權", "開啟腳本"} with title ¬
+				{"重置自動化與全盤訪問特權"}
+		if Reset_automation_and_full_access is "重置自動化特權" then do shell script ("tccutil reset AppleEvents")
+		if Reset_automation_and_full_access is "重置全盤訪問特權" then do shell script ("tccutil reset SystemPolicyAllFiles")
+		if Reset_automation_and_full_access is "開啟腳本" then run script OpenScript
+		set TerminalNotifier to POSIX path of (path to me as text) & ("Contents/MacOS/terminal-notifier")
+		set TerminalNotifier to quoted form of TerminalNotifier
+		do shell script (TerminalNotifier & " -title 已重置鰳唷💋")
+		continue quit
+	on error errmsg number errnbr
+		if errnbr = -128 then continue quit
+		continue quit
+	end try
+end run
+------------------------ 開啟腳本 ------------------------ON. 
+script OpenScript
+	try
+		set OpenAppScript to POSIX path of (path to me as text) & ("Contents/Resources/Scripts/main.scpt")
+		set OpenAppScript to quoted form of OpenAppScript
+		do shell script ("open " & OpenAppScript)
+		set TerminalNotifier to POSIX path of (path to me as text) & ("Contents/MacOS/terminal-notifier")
+		set TerminalNotifier to quoted form of TerminalNotifier
+		do shell script (TerminalNotifier & " -title 腳本已開啟鰳唷💋")
+		continue quit
+	on error errmsg number errnbr
+		if errnbr = -128 then continue quit
+		continue quit
+	end try
+end script
+----------------------------∞ 重置自動化與全盤訪問特權 ∞----------------------------END. 
+
+
+-- 
