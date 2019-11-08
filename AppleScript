@@ -36,8 +36,7 @@ on run
 			set TerminalNotifier to quoted form of TerminalNotifier
 			do shell script (TerminalNotifier & " -title 已重置鰳唷💋")
 			continue quit
-		end if
-		continue quit
+		end if 
 	on error errmsg number errnbr
 		if errnbr = -128 then continue quit
 		continue quit
